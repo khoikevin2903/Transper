@@ -16,22 +16,27 @@ function FormChat(props) {
 
     const [message, setMessage] = useState([]);
 
-    useEffect(() => {
-        setMessage(arr);
-        if (!checkOther) {
-            dispatch(FetchChat({ id: senderId, header: header }));
-        }
-    }, [idChat])
+
+
+    const messagesEndRef = useRef(null);
 
     const [check, setCheck] = useState(false);
 
-    const messagesEndRef = useRef(null);
+
 
     const scrollToBottom = () => {
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     };
 
     const [mess, setMess] = useState('');
+
+    useEffect(() => {
+        setMessage(arr);
+        if (!checkOther) {
+            dispatch(FetchChat({ id: senderId, header: header }));
+        }
+        scrollToBottom();
+    }, [idChat])
 
     useEffect(scrollToBottom, [mess]);
 
@@ -51,7 +56,7 @@ function FormChat(props) {
                 senderId: senderId,
                 content: mess
             }));
-            setTimeout(setMess(''), 300);
+            // setMess('');
         }
     }
 
@@ -130,16 +135,22 @@ function FormChat(props) {
             <SockJsClient url={SOCKET_URL}
                 topics={[`/topic/${idChat}/queue/messages`]}
                 onConnect={() => {
-                    
+                    // console.log(idChat + " connect");
                 }}
                 onDisconnect={() => {
+                    // console.log(idChat + "dis connect");
 
                 }}
                 onMessage={async (msg) => {
+
                     message.push(msg);
+                    if (msg.senderId === senderId) {
+                        setMess('')
+                    }
                     await dispatch(FetchChat2({ id: senderId, header: header }));
                     await dispatch(FetchChat({ id: senderId, header: header }));
                     scrollToBottom();
+                   
                     //setMessage([...message]);
                 }}
                 ref={(client) => {

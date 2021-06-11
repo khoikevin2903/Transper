@@ -20,7 +20,6 @@ function RegisterForm(props) {
     const [check, setCheck] = useState(true);
 
     const [account, setAccount] = useState({
-        name: "",
         username: "",
         email: "",
         password: ""
@@ -69,7 +68,6 @@ function RegisterForm(props) {
             CallApi('api/auth/signup', 'POST', {
                 'username': account.username,
                 'password': account.password,
-                'name': account.name,
                 'email': account.email
             })
                 .then(res => {
@@ -80,7 +78,6 @@ function RegisterForm(props) {
                         dispatch(onLogin());
                         history.push('/login');
                         setAccount({
-                            name: "",
                             username: "",
                             email: "",
                             password: ""
@@ -115,10 +112,6 @@ function RegisterForm(props) {
                     <p className="opacity-50 font-medium">Tạo một tài khoản miễn phí và tận hưởng nó</p>
                 </div>
                 <form action="" method="post" className="pl-3 mt-14">
-                    <div className="animate-fade-in-up-0 border-b border-gray-200 flex items-center justify-between rounded py-1 input">
-                        <input type="text" placeholder="Tên" value={account.name} onChange={HandleChange} className="pl-2 w-full mr-2 py-1" name="name" />
-                        <i className="fas fa-signature opacity-50 mr-1"></i>
-                    </div>
                     <div className="animate-fade-in-up-1 border-b border-gray-200 flex items-center justify-between rounded py-1 input mt-4">
                         <input type="text" placeholder="Địa chỉ email" value={account.email} onChange={HandleChange} className="pl-2 w-full mr-2 py-1" name="email" />
                         <i className="far fa-envelope opacity-50 mr-2"></i>
