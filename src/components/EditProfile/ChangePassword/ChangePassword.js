@@ -18,6 +18,8 @@ function ChangePassword(props) {
 
     const info = useSelector(state => state.CheckLogin);
 
+    const account = useSelector(state => state.Account.password);
+
     const [changePass, setChangePass] = useState({
         oldPassword: "",
         newPassword: "",
@@ -39,10 +41,14 @@ function ChangePassword(props) {
             setCheck(false);
             setMess('Không được để trống!!!');
         }
-        else if (changePass.newPassword !== changePass.verifyPassword) {
+        else if(changePass.oldPassword !== account){
             setLoading(false);
             setCheck(false);
-            setMess('Xác nhận mật khẩu không đúng !!!');
+            setMess('Mật khẩu cũ không chính xác !!!');
+        }else if (changePass.newPassword !== changePass.verifyPassword) {
+            setLoading(false);
+            setCheck(false);
+            setMess('Xác nhận mật khẩu không chính xác!!!');
         } else {
             try {
                 const actionResult = await dispatch(changePassword({
