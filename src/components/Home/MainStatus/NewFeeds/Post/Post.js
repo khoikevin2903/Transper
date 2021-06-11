@@ -49,7 +49,7 @@ function Post(props) {
                     <div className="mb-3 bg-white rounded-lg px-3 shadow mt-4" key={item.id}>
                         <div className="border-b">
                             <div className="flex items-center py-3 relative">
-                                <div className="avatar bg-avataImage h-12 w-12 bg-cover rounded-full mr-6 cursor-pointer"
+                                <div className={`avatar h-12 w-12 bg-cover rounded-full mr-6 cursor-pointer ${item.creatorId === User.current.id ? 'bg-avataImage' : 'bg-avataImage2'}`}
                                     onClick={() => {
                                         if (check === index + 1) setCheck(0);
                                         else setCheck(index + 1)
