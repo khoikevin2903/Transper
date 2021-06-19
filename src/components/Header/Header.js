@@ -148,22 +148,22 @@ function Header(props) {
 								</div>
 								<div className="cursor-pointer py-4 bg-white cursor-pointer rounded-b-md">
 									<div className="flex justify-center items-center text-white bg-blue-400 py-2 mx-24 rounded-lg opacity-90 hover:opacity-100 duration-500"
-										onClick={async () => {
+										onClick={() => {
 											dispatch(changeOption(0));
-											const result = await axios.get(`${Config.API_URL}/api/active/disconnect/${username}`, {
+											axios.get(`${Config.API_URL}/api/active/disconnect/${username}`, {
 												headers: {
 													'Authorization': `Bearer ${token}`
 												}
-											})
-											if (result) {
+											}).then(res => {
 												dispatch(offModal());
+												dispatch(onLogout())
 												dispatch(defaultList());
 												dispatch(defaultDistrictsStart());
 												dispatch(defaultDistrictsEnd());
 												dispatch(defaultPlace());
 												dispatch(defaultPlaceName());
-											}
-											dispatch(onLogout());
+											});
+											dispatch(onLogout())
 										}}
 									>
 										<p>Đăng xuất</p>
