@@ -31,7 +31,7 @@ function Header(props) {
 
 	const [option, setOption] = useState(false);
 
-	useEffect(() => {},[token])
+	useEffect(() => { }, [token])
 
 	// const optionShow = useSelector(state => state.OptionShow);
 
@@ -148,21 +148,22 @@ function Header(props) {
 								</div>
 								<div className="cursor-pointer py-4 bg-white cursor-pointer rounded-b-md">
 									<div className="flex justify-center items-center text-white bg-blue-400 py-2 mx-24 rounded-lg opacity-90 hover:opacity-100 duration-500"
-										onClick={() => {
+										onClick={async () => {
 											dispatch(changeOption(0));
-											axios.get(`${Config.API_URL}/api/active/disconnect/${username}`, {
+											const result = await axios.get(`${Config.API_URL}/api/active/disconnect/${username}`, {
 												headers: {
 													'Authorization': `Bearer ${token}`
 												}
-											}).then(res => {
+											})
+											if (result) {
 												dispatch(offModal());
-												dispatch(onLogout())
 												dispatch(defaultList());
 												dispatch(defaultDistrictsStart());
 												dispatch(defaultDistrictsEnd());
 												dispatch(defaultPlace());
 												dispatch(defaultPlaceName());
-											});
+											}
+											dispatch(onLogout());
 										}}
 									>
 										<p>Đăng xuất</p>

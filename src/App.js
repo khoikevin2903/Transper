@@ -14,7 +14,7 @@ import AlertTemplate from "react-alert-template-basic";
 import axios from 'axios';
 import * as Config from './constants/Config';
 import Error from './pages/Error';
-
+import { useIdleTimer } from 'react-idle-timer'
 
 function App(props) {
 
@@ -25,6 +25,33 @@ function App(props) {
 
 	const dispatch = useDispatch();
 
+
+	const handleOnIdle = async (event) => {
+		await axios.get(`https://chatchit69.herokuapp.com/api/active/disconnect/${username}`, {
+			headers: {
+				'Authorization': `Bearer ${accessToken}`
+			}
+		}).then(res => res);
+		console.log('user is idle', event)
+		console.log('last active', getLastActiveTime())
+	}
+
+	const handleOnActive = async (event) => {
+		await axios.get(`${Config.API_URL}/api/active/connect/${username}`, {
+			headers: {
+				'Authorization': `Bearer ${accessToken}`
+			}
+		}).then(res => res);
+		console.log('user is active', event)
+		console.log('time remaining', getRemainingTime())
+	}
+
+	const { getRemainingTime, getLastActiveTime } = useIdleTimer({
+		timeout: 1000 * 60 * 30,
+		onIdle: handleOnIdle,
+		onActive: handleOnActive,
+		debounce: 500
+	})
 
 	async function fetchData() {
 		await dispatch(fetchUser(accessToken));
@@ -45,19 +72,38 @@ function App(props) {
 				fetchData();
 			}
 		})
+		ROUTES.push({
+			path: "*",
+			exact: true,
+			main: Error,
+		});
 	}
-	ROUTES.push({
-		path: "*",
-		exact: true,
-		main: Error,
-	});
 
-	const doSomeThing = () => {
-		axios.get(`https://chatchit69.herokuapp.com/api/active/disconnect/${username}`, {
-			headers: {
-				'Authorization': `Bearer ${accessToken}`
-			}
-		}).then(res => res);
+
+	const doSomeThing = async (e) => {
+		// var message = "\o/";
+
+		// (e || window.event).returnValue = message; //Gecko + IE
+
+		// await axios.get(`https://chatchit69.herokuapp.com/api/active/disconnect/${username}`, {
+		// 	headers: {
+		// 		'Authorization': `Bearer ${accessToken}`
+		// 	}
+		// }).then(res => console.log(res.data));
+		function sendSimpleBeacon(data) {
+			if (!navigator.sendBeacon) return;
+
+			var url = "https://chatchit69.herokuapp.com/api/active/disconnect";
+			var data = "data=" + data;
+
+			var status = navigator.sendBeacon(url + "?" + data);
+			// console.log("Status of sendBeacon: " + status);
+		}
+		sendSimpleBeacon(username)
+		// setTimeout(function () { return; }, 200)
+
+		// return message;
+		// return message;
 	}
 
 	const setupBeforeUnLoad = () => {
@@ -78,7 +124,7 @@ function App(props) {
 		}).then(res => res);
 		//dispatch(onLogout())
 		//dispatch(changeOption(0));
-	}, [accessToken])
+	}, [accessToken, username])
 
 	async function FetchData() {
 		const db = await new Promise((a, b) => {

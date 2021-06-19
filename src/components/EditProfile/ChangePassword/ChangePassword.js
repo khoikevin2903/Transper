@@ -3,8 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changePassword } from '../../../reducers/changePassword';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useAlert } from "react-alert";
+import swal from 'sweetalert';
+import {useHistory} from 'react-router-dom';
 
 function ChangePassword(props) {
+
+    const history = useHistory();
 
     const alert = useAlert();
 
@@ -27,6 +31,7 @@ function ChangePassword(props) {
     });
 
     const HandleChangePass = (e) => {
+        setCheck(false);
         const target = e.target;
         const name = target.name;
         const value = target.value;
@@ -60,7 +65,11 @@ function ChangePassword(props) {
                 const currentResult = unwrapResult(actionResult);
                 if (currentResult.status === 200) {
                     setLoading(false);
-                    alert.success('Đổi mật khẩu thành công !');
+                    //alert.success('Đổi mật khẩu thành công !');
+                    swal("Thay đổi mật khẩu thành công!", "Nhấn vào OK để trở về trang chủ!", "success")
+                    .then(val => {
+                        if(val) history.push('/');
+                    })
                     setChangePass({
                         oldPassword: "",
                         newPassword: "",

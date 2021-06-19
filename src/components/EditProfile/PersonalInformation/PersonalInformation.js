@@ -5,8 +5,13 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useAlert } from "react-alert";
+import {onLogout} from '../../../reducers/checkLogin';
+import swal from 'sweetalert';
+import { useHistory } from 'react-router-dom';
 
 function PersonalInformation(props) {
+
+    const history = useHistory();
 
     const alert = useAlert();
 
@@ -61,13 +66,28 @@ function PersonalInformation(props) {
                 phoneNumber: info.phoneNumber,
                 age: Number(info.age),
                 gender: info.gender,
-                dob:  moment(info.dob).format().substring(0,29),
+                dob:info.dob !== null ? moment(info.dob).format().substring(0,29) : new Date(),
                 header: User.current.accessToken
             }));
             const currentResult = unwrapResult(actionResult);
             if (currentResult.status === 200) {
                 setLoading(false);
-                alert.success('Thay đổi thông tin thành công !');
+                // alert.success('Thay đổi thông tin thành công !');
+                // if(window.confirm('Bạn có muốn đăng nhập lại để cập nhật thông tin ?'))
+                swal({
+                    title: "Cập nhật thông tin thành công?",
+                    text: "Bạn có muốn đăng nhập lại để cập nhật thông tin!",
+                    icon: "success",
+                    buttons: true,
+                    dangerMode: true,
+                  })
+                  .then((willLogout) => {
+                    if (willLogout) {
+                        dispatch(onLogout());
+                    } else {
+                      history.push('/')
+                    }
+                  });
             } else {
                 setLoading(false);
                 alert.error("Thay đổi thông tin thất bại!!!");

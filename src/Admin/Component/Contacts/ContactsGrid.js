@@ -7,8 +7,9 @@ import Classnames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import * as Config from '../../../constants/Config';
-import {fetchUser} from '../../../reducers/FetchAllUser';
+import { fetchUser } from '../../../reducers/FetchAllUser';
 import { useAlert } from "react-alert";
+import swal from 'sweetalert';
 
 function ContactsGrid(props) {
 
@@ -16,7 +17,7 @@ function ContactsGrid(props) {
 
     const dispatch = useDispatch();
 
-    const User = useSelector(state =>state.CheckLogin);
+    const User = useSelector(state => state.CheckLogin);
 
     const SortArr = (array) => {
         return array.sort(function (a, b) {
@@ -25,7 +26,7 @@ function ContactsGrid(props) {
     }
 
     let ListUser = useSelector(state => state.FetchAllUser);
-    
+
     ListUser = SortArr([...ListUser]);
     const [page, setPage] = useState({
         _limit: 10,
@@ -36,9 +37,9 @@ function ContactsGrid(props) {
         setPage({ ...page, page: num })
     }
 
-    const Rating = (num,page) => {
+    const Rating = (num, page) => {
         let result = [];
-        num =  (Math.random() * 3) + 2;
+        num = (Math.random() * 3) + 2;
         const newNum = Math.round(num);
         for (let i = 1; i <= 5; i++) {
             if (i <= num) {
@@ -55,21 +56,33 @@ function ContactsGrid(props) {
     }
 
     const HandleBlock = (item) => {
-        axios.get(`${Config.API_URL}/api/users/block/${item.id}`, {
-            headers: {
-                'Authorization': `Bearer ${User.current.accessToken}`
-            }}).then(res => {
-                if(res.status === 200){
-                    if(item.block === true){
-                        alert.success('Mở khóa người dùng thành công !');
-                    } else alert.error('Khóa người dùng thành công !');
-                    dispatch(fetchUser(User.current.accessToken));
-                    ListUser = SortArr([...ListUser]);
+        swal({
+            title: item.block ? "Mở khóa người dùng!" : "Khóa người dùng!",
+            text: item.block ? "Bạn có chắc chắn là muốn mở khóa người dùng này!" : "Bạn có chắc chắn là khóa người dùng này!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    axios.get(`${Config.API_URL}/api/users/block/${item.id}`, {
+                        headers: {
+                            'Authorization': `Bearer ${User.current.accessToken}`
+                        }
+                    }).then(res => {
+                        if (res.status === 200) {
+                            if (item.block === true) {
+                                alert.success('Mở khóa người dùng thành công !');
+                            } else alert.success('Khóa người dùng thành công !');
+                            dispatch(fetchUser(User.current.accessToken));
+                            ListUser = SortArr([...ListUser]);
+                        }
+                        else {
+                            alert('Chức năng xảy ra lỗi !')
+                        }
+                    })
                 }
-                else {
-                    alert('Chức năng xảy ra lỗi !')
-                }
-            })
+            });
     }
 
     const fetchListWithPage = (list) => {
@@ -88,13 +101,13 @@ function ContactsGrid(props) {
                         </div>
                     </td>
                     <td className="flex h-full items-center justify-center">{item.numberOfPost}</td>
-                    <td>
+                    <td className="text-center">
                         <Link title="Trang cá nhân" to={`/profile/${item.username}`}>
                             <i className="far fa-user-circle" alt="aaa"></i>
                         </Link>
                         <i className="far fa-trash-alt px-2 cursor-pointer" title="Xóa tài khoản"></i>
-                        {item.blocked === true ? <i className="fas fa-lock-open px-2 cursor-pointer" title="Mở khóa tài khoản" onClick={() => HandleBlock({block: item.blocked, id: item.id})}></i> :
-                            <i className="fas fa-lock px-2 cursor-pointer" title="Khóa tài khoản" onClick={() => HandleBlock({block: item.blocked, id: item.id})}></i>
+                        {item.blocked === true ? <i className="fas fa-lock-open cursor-pointer" title="Mở khóa tài khoản" onClick={() => HandleBlock({ block: item.blocked, id: item.id })}></i> :
+                            <i className="fas fa-lock cursor-pointer" title="Khóa tài khoản" onClick={() => HandleBlock({ block: item.blocked, id: item.id })}></i>
                         }
                     </td>
                 </tr>
@@ -125,7 +138,7 @@ function ContactsGrid(props) {
                                         <th className="w-1/6 text-left">Email</th>
                                         <th className="w-1/6 text-left pl-4">Đánh giá</th>
                                         <th className="w-1/12 text-left">Bài đăng</th>
-                                        <th className="w-1/6 text-left">Chức năng</th>
+                                        <th className="w-1/6 text-center">Chức năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>

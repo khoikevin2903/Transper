@@ -35,6 +35,7 @@ function LoginForm(props) {
     })
 
     const handleChangeLogin = (e) => {
+        setCheck(true);
         var target = e.target;
         var name = target.name;
         var value = target.value;
@@ -62,6 +63,7 @@ function LoginForm(props) {
                         }
                     }).then(res => res);
                 } else {
+                    setLogin(...login, login.password = '')
                     setLoading(false);
                     setMess(Mess.LOGIN_FAIL_INFO);
                     setCheck(false);

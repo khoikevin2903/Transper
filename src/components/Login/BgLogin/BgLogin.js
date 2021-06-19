@@ -21,12 +21,9 @@ function BgLogin(props) {
             <div className="h-full w-full bg-black opacity-50 flex absolute top-0 left-0 z-40 flex justify-center items-center">
             </div>
             <div className="text-white absolute top-0 left-0 z-50 flex items-center justify-center h-full w-full">
-                <div className="w-7/12 break-words">
-                    <h1 className="font-bold text-2xl mb-10">Chào Mừng Bạn Đã Đến Với Transper</h1>
-                    <p>Như là đã chứng kiến tất cả một đời sống hối hả.
-                    Nhà tôi gần phố trong một lần đó.
-                    Do là may mắn,
-                    Cho tôi tìm được người bạn đồng hành dù mong manh nhưng cả hai lột tả cùng một tầng số.
+                <div className="w-2/3 break-words">
+                    <h1 className="font-bold text-3xl mb-10 ">Chào Mừng Bạn Đã Đến Với Transper</h1>
+                    <p className="text-lg">Hệ thống môi giới vận chuyển không chuyên hàng đầu Việt Nam.
                             </p>
                     <div className="flex items-center divide-x divide-white justify-start mt-8 ">
                         <div className={ClassNames(

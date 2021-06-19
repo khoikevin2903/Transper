@@ -15,11 +15,13 @@ function RegisterForm(props) {
 
     const history = useHistory();
 
-    const [mess, setMess] = useState(Mess.LOGIN_FAIL_INFO);
+    const [mess, setMess] = useState('');
 
     const [check, setCheck] = useState(true);
 
     const [account, setAccount] = useState({
+        firstName: "",
+        lastName: "",
         username: "",
         email: "",
         password: ""
@@ -28,6 +30,7 @@ function RegisterForm(props) {
     const [loading, setLoading] = useState(false);
 
     const HandleChange = (e) => {
+        setCheck(true);
         var target = e.target;
         var name = target.name;
         var value = target.value;
@@ -36,36 +39,23 @@ function RegisterForm(props) {
         })
     }
 
-    const CheckSignUp = () => {
-        if (account.email.search("@gmail.com") === -1 || account.email === "") {
-            setCheck(false);
-            setLoading(false);
-            setMess(Mess.SIGNUP_FAIL_EMAIL);
-        }
-        if (account.name === "") {
-            setCheck(false);
-            setLoading(false);
-            setMess(Mess.SIGNUP_FAIL_NAME);
-        }
-        if (account.username === "" || account.username.length < 8) {
-            setCheck(false);
-            setLoading(false);
-            setMess(Mess.SIGNUP_FAIL_USER);
-        }
-        if (account.password === "" || account.username.length < 8) {
-            setCheck(false);
-            setLoading(false);
-            setMess(Mess.SIGNUP_FAIL_PASS);
-        }
-    }
-
     const HandleSubmit = (e) => {
         e.preventDefault();
         setLoading(true);
-        CheckSignUp();
-        if (check) {
-            const ac = new AbortController();
+        if (account.firstName === "" || account.lastName === "" || account.email === "" || account.username === "" || account.password === "") {
+            setCheck(false);
+            setLoading(false);
+            setMess('Vui lòng nhập đầy đủ thông tin !');
+        }
+        else if (account.email.search("@gmail.com") === -1) {
+            setCheck(false);
+            setLoading(false);
+            setMess('Email không hợp lệ! Vui lòng kiểm tra lại!');
+        }
+        else {
             CallApi('api/auth/signup', 'POST', {
+                'firstName': account.firstName,
+                'lastName': account.lastName,
                 'username': account.username,
                 'password': account.password,
                 'email': account.email
@@ -76,8 +66,12 @@ function RegisterForm(props) {
                         setLoading(false);
                         alert.success('Tạo tài khoản thành công !');
                         dispatch(onLogin());
-                        history.push('/login');
+                        setTimeout(() => {
+                            history.push('/login');
+                        }, 1500);
                         setAccount({
+                            firstName: "",
+                            lastName: "",
                             username: "",
                             email: "",
                             password: ""
@@ -91,14 +85,13 @@ function RegisterForm(props) {
                 .catch(err => {
                     setCheck(false);
                     setLoading(false);
-                    setMess(Mess.SIGNUP_FAIL_USER);
+                    setMess('Đăng kí thất bại!');
                 });
-            return ac.abort();
-        } else {
-            setCheck(false);
-            setLoading(false);
-            setMess(Mess.SIGNUP_FAIL_USER);
         }
+
+        // const ac = new AbortController();
+
+        //return ac.abort();
     }
     return (
         <div className="flex items-center justify-center w-1/2">
@@ -112,6 +105,14 @@ function RegisterForm(props) {
                     <p className="opacity-50 font-medium">Tạo một tài khoản miễn phí và tận hưởng nó</p>
                 </div>
                 <form action="" method="post" className="pl-3 mt-14">
+                    <div className="animate-fade-in-up-1 border-b border-gray-200 flex items-center justify-between rounded py-1 input mt-4">
+                        <input type="text" placeholder="Họ" value={account.lastName} onChange={HandleChange} className="pl-2 w-full mr-2 py-1" name="lastName" />
+                        <i className="fas fa-signature opacity-50 mr-2"></i>
+                    </div>
+                    <div className="animate-fade-in-up-1 border-b border-gray-200 flex items-center justify-between rounded py-1 input mt-4">
+                        <input type="text" placeholder="Tên" value={account.firstName} onChange={HandleChange} className="pl-2 w-full mr-2 py-1" name="firstName" />
+                        <i className="fab fa-lastfm opacity-50 mr-2"></i>
+                    </div>
                     <div className="animate-fade-in-up-1 border-b border-gray-200 flex items-center justify-between rounded py-1 input mt-4">
                         <input type="text" placeholder="Địa chỉ email" value={account.email} onChange={HandleChange} className="pl-2 w-full mr-2 py-1" name="email" />
                         <i className="far fa-envelope opacity-50 mr-2"></i>

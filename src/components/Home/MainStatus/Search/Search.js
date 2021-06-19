@@ -8,6 +8,7 @@ import moment from 'moment';
 import axios from 'axios';
 import * as Config from '../../../../constants/Config';
 import { saveList, FetchList } from '../../../../reducers/fetchListPost';
+import './Search.scss'
 
 function Search(props) {
 
@@ -69,7 +70,9 @@ function Search(props) {
                 toTime: moment(endTime).format().substring(0, 19),
             }
         }
-        if (search.username !== "") obj = { ...obj, word: search.username };
+        if (search.username !== "") {
+            obj = { ...obj, word: search.username };
+        }
         if (search.transport !== "") obj = { ...obj, transport: search.transport };
         if (search.fromCity !== "" && search.fromDistrict !== "") obj = { ...obj, fromPlace: `${search.fromDistrict}-${search.fromCity}` };
         if (search.fromCity !== "" && search.fromDistrict === "") obj = { ...obj, fromPlace: `${search.fromCity}` };
@@ -94,6 +97,7 @@ function Search(props) {
                 setLoading(false);
             })
         }
+
     }
 
     return (
@@ -109,7 +113,7 @@ function Search(props) {
                     <div className={`inline-block relative font-thin text-base `} style={{ width: "164px" }}>
                         <select className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-2 py-2 rounded leading-tight focus:outline-none focus:shadow-outline"
                             name="transport" value={search.transport} onChange={HandleChangeSearch}>
-                             <option value="" className="text-sm opacity-70">Phương tiện</option>
+                            <option value="" className="text-sm opacity-70">Phương tiện</option>
                             {elm}
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -157,9 +161,15 @@ function Search(props) {
                 </div>
             </div>
             <div className="flex justify-center py-4">
-                <button className="flex items-center transition duration-500 hover:no-underline ease-in-out transform hover:-translate-y-1 hover:scale-110 py-1 px-8 hover:bg-blue-500 hover:text-white border border-blue-600 rounded-lg text-blue-400 text-xl"
+                {/* <button className="flex items-center transition duration-500 hover:no-underline ease-in-out transform hover:-translate-y-1 hover:scale-110 py-1 px-8 hover:bg-blue-500 hover:text-white border border-blue-600 rounded-lg text-blue-400 text-xl"
                     onClick={HandleSubmit}
                 >
+                    <span>Tìm kiếm</span>
+                    {loading && (
+                        <div className="duration-300 loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-4 w-4 ml-3"></div>
+                    )}
+                </button> */}
+                <button onClick={HandleSubmit} className="hover-1 flex items-center">
                     <span>Tìm kiếm</span>
                     {loading && (
                         <div className="duration-300 loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-4 w-4 ml-3"></div>
