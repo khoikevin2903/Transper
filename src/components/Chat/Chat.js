@@ -22,6 +22,8 @@ function Chat(props) {
 
     const list = useSelector(state => state.FetchListChat);
 
+    const [filterList, setFilterList] = useState("");
+
     const [checkWhoMess, setCheckWhoMess] = useState({
         id: id, name: name
     });
@@ -46,6 +48,8 @@ function Chat(props) {
     }
 
     const ShowListChat = (listChat) => {
+        listChat = listChat.filter(word => 
+            `${word.lastName} ${word.firstName}`.toLocaleLowerCase('en-US').indexOf(filterList.toLocaleLowerCase('en-US')) !== -1)
         let result;
         if (listChat.length > 0) {
             result = listChat.map((item, index) => {
@@ -56,7 +60,7 @@ function Chat(props) {
                         }} key={index}>
                         <div className="bg-avataImage2 bg-no-repeat bg-cover h-14 w-14 rounded-lg" />
                         <div className="ml-4">
-                            <p className="opacity-80">{`${item.lastName} ${item.firstName}`}</p>
+                            <p className="opacity-80 truncate w-32">{`${item.lastName} ${item.firstName}`}</p>
                             <p className="opacity-60 text-xs">{item.username}</p>
                         </div>
                     </Link>
@@ -89,8 +93,10 @@ function Chat(props) {
                             <i className="fas fa-search text-blue-300 mr-3"></i>
                             <input
                                 type="text"
-                                placeholder="Search"
+                                placeholder="Search..."
                                 className="w-full focus:border-none focus:outline-none"
+                                value={filterList}
+                                onChange={(e) => setFilterList(e.target.value)}
                             />
                         </div>
                     </div>

@@ -137,7 +137,7 @@ function PersonalInformation(props) {
                         </div>
                         <FormDatePicker HandleChange={HandleChangeDate} dob={info.dob} />
                     </div>
-                    <div className="flex items-center mt-2">
+                    <div className="flex items-center mt-2 ml-3">
                         <button type="submit" className="flex items-center justify-center mr-3 py-2 px-4 rounded-lg bg-blue-400 text-white cursor-pointer opacity-80 hover:opacity-100 duration-300"
                             onClick={HandleSubmit}
                         >

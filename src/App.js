@@ -6,7 +6,6 @@ import { setData } from './reducers/place';
 import { useDispatch, useSelector } from 'react-redux';
 import { onLogin } from './reducers/login-register';
 import ContactGridPage from './pages/ContactGridPage';
-//import {changeOption} from './reducers/optionShow';
 import { fetchUser } from './reducers/FetchAllUser';
 //import { onLogout } from './reducers/checkLogin';
 import { positions, Provider } from "react-alert";
@@ -81,29 +80,14 @@ function App(props) {
 
 
 	const doSomeThing = async (e) => {
-		// var message = "\o/";
 
-		// (e || window.event).returnValue = message; //Gecko + IE
-
-		// await axios.get(`https://chatchit69.herokuapp.com/api/active/disconnect/${username}`, {
-		// 	headers: {
-		// 		'Authorization': `Bearer ${accessToken}`
-		// 	}
-		// }).then(res => console.log(res.data));
 		function sendSimpleBeacon(data) {
 			if (!navigator.sendBeacon) return;
-
 			var url = "https://chatchit69.herokuapp.com/api/active/disconnect";
 			var data = "data=" + data;
-
 			var status = navigator.sendBeacon(url + "?" + data);
-			// console.log("Status of sendBeacon: " + status);
 		}
 		sendSimpleBeacon(username)
-		// setTimeout(function () { return; }, 200)
-
-		// return message;
-		// return message;
 	}
 
 	const setupBeforeUnLoad = () => {

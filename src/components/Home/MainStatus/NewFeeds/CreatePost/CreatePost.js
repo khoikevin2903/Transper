@@ -6,7 +6,7 @@ function CreatePost(props) {
 
     const dispatch = useDispatch();
     return (
-        <div className=" shadow">
+        <div className="shadow rounded-md">
             <h2 className="py-4 px-6 opacity-80 border-b">Tạo Lịch Trình</h2>
             <div className="" onClick={() => dispatch(onModal(1))}>
                 <div className="px-4">

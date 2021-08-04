@@ -31,14 +31,15 @@ function LeftList(props) {
             result = list.map((item, index) => {
                 if (ListChat.length > 0) id = ListChat[0].id + "";
                 return (
-                    <Link to={(item.option === 1) ? `${item.path}/${id}` : item.path} className="cursor-pointer" key={index}
+                    <Link to={(item.option === 1) ? `${item.path}/${id}` : item.path} 
+                    className="cursor-pointer truncate" key={index}
                         onClick={() => {
                             dispatch(changeOption(item.option));
                         }}
                     >
                         <div className={ClassNames('mx-4 flex items-center rounded-md text-gray-500 hover:text-blue-300', { 'bg-gray-100 text-blue-400': options === index, 'mt-3': index !== 0 })}>
                             {item.icon}
-                            {check && <p className="w-2/3 text-sm">{item.name}</p>}
+                            <p className={`w-2/3 text-sm duration-500 w3-animate-left ${!check ? 'hidden' : ''}`}>{item.name}</p>
                         </div>
                     </Link>
                 )
@@ -53,14 +54,14 @@ function LeftList(props) {
             checkRoles.map(item => {
                 if (item === "ROLE_ADMIN") {
                     result = (
-                        <Link to='/admin/contactsGrid' className="cursor-pointer"
+                        <Link to='/admin/contactsGrid' className="cursor-pointer truncate" 
                             onClick={() => {
                                 dispatch(changeOption(5));
                             }}
                         >
                             <div className={ClassNames('mx-4 flex items-center mt-3 rounded-md text-gray-500 hover:text-blue-300', { 'bg-gray-100 text-blue-400': options === 5 })}>
                                 <i className="fas fa-list-ol w-1/3 py-4 px-6" />
-                                {check && <p className="w-2/3 text-sm">Quản lý người dùng</p>}
+                                <p className={`w-2/3 text-sm duration-500 w3-animate-left ${!check ? 'hidden' : ''}`}>Quản lý người dùng</p>
                             </div>
                         </Link>
                     )

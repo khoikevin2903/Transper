@@ -1,19 +1,23 @@
+*:focus {
+  outline: 0 !important;
+}
+
 .hover-1 {
     margin-top: 2px;
     color:rgb(33, 147, 240);
     font-family: sans-serif;
     font-size: 16px;
     letter-spacing: 1px;
-    border: 2px solid rgb(33, 147, 240);
-    border-radius: 3px;
+    border: 2px solid rgb(33, 147, 240) !important;
+    border-radius: 6px !important;
     padding: 8px 20px;
     text-decoration: none;
     text-transform: uppercase;
     position: relative;
     transition: color .5s;
-    z-index: 2;
     overflow: hidden;
     border-radius: 8px;
+    z-index: 0;
     
     &:before {
       content: '';
@@ -36,3 +40,18 @@
       }
     }
   }
+
+  .react-datepicker {
+    left: -115px;
+    margin-bottom: 0;
+    z-index: 2;
+
+    .react-datepicker__triangle {
+      left: 196px !important;
+    }
+  }
+
+  .react-datepicker-popper {
+    margin-bottom: 0px !important;
+  }
+

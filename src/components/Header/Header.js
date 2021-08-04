@@ -33,8 +33,6 @@ function Header(props) {
 
 	useEffect(() => { }, [token])
 
-	// const optionShow = useSelector(state => state.OptionShow);
-
 	const HandleChangeOption = () => {
 		setOption(!option);
 	}
@@ -45,9 +43,12 @@ function Header(props) {
 		<div className="w-full">
 			<div className="flex items-center justify-between p-2">
 				<div className="flex items-center">
-					<div className="flex items-center mr-3">
-						<div className="ml-2 mr-3 bg-logo bg-cover bg-no-repeat cursor-pointer w-16 h-16"></div>
-						<h1 className="font-medium">TRANSPER</h1>
+					<div className="flex items-center mr-3 cursor-pointer" onClick={() => {
+						history.push('/')
+						dispatch(changeOption(0))
+					}}>
+						<div className="ml-2 mr-3 bg-logo bg-cover bg-no-repeat w-16 h-16"></div>
+						<h1 className="font-medium" style={{letterSpacing: '4px'}}>TRANSPER</h1>
 					</div>
 
 					<div
@@ -70,8 +71,13 @@ function Header(props) {
 				</div>
 				<div className="flex items-center">
 					<ul className="flex items-center">
-						<li className="bg-avataImage h-12 w-12 bg-cover rounded-full cursor-pointer"></li>
-						<li className="mx-4 cursor-pointer">{InfoUser ? `${InfoUser.lastName} ${InfoUser.firstName}` : ""}</li>
+						<div className="flex items-center" onClick={() => {
+							history.push('/myProfile')
+							dispatch(changeOption(2))
+						}}>
+							<li className="bg-avataImage h-12 w-12 bg-cover rounded-full cursor-pointer"></li>
+							<li className="mx-4 cursor-pointer">{InfoUser ? `${InfoUser.lastName} ${InfoUser.firstName}` : ""}</li>
+						</div>
 						<Link to="/" className="text-blue-300 mx-4 cursor-pointer" onClick={() => dispatch(changeOption(0))}>
 							<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />

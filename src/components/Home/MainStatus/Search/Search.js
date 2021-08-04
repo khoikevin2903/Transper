@@ -48,8 +48,8 @@ function Search(props) {
 
     const ExampleCustomInput = forwardRef(
         ({ value, onClick }, ref) => (
-            <div className="p-2 rounded cursor-pointer ">
-                <div className="py-1 px-2 rounded border border-gray-400" onClick={onClick} ref={ref}>
+            <div className="rounded cursor-pointer ">
+                <div className="" onClick={onClick} ref={ref}>
                     {value}
                 </div>
             </div>
@@ -97,7 +97,6 @@ function Search(props) {
                 setLoading(false);
             })
         }
-
     }
 
     return (
@@ -122,29 +121,34 @@ function Search(props) {
                     </div>
                 </div>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center mt-2">
                 <p className="w-1/3 ml-2">Thời gian đi</p>
-                <DatePicker
-                    selected={startTime}
-                    onChange={(date) => setStartTime(date)}
-                    showTimeSelect
-                    timeFormat="p"
-                    timeIntervals={15}
-                    dateFormat="Pp"
-                    customInput={<ExampleCustomInput />}
-                />
+                <div className="p-2 ml-2 rounded border border-gray-400">
+                    <DatePicker
+                        selected={startTime}
+                        onChange={(date) => setStartTime(date)}
+                        showTimeSelect
+                        timeFormat="p"
+                        timeIntervals={15}
+                        dateFormat="Pp"
+                        customInput={<ExampleCustomInput />}
+                    />
+                </div>
+
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center mt-3 mb-2">
                 <p className="w-1/3 ml-2">Thời gian đến</p>
-                <DatePicker
-                    selected={endTime}
-                    onChange={(date) => setEndTime(date)}
-                    showTimeSelect
-                    timeFormat="p"
-                    timeIntervals={15}
-                    dateFormat="Pp"
-                    customInput={<ExampleCustomInput />}
-                />
+                <div className="p-2 ml-2 rounded border border-gray-400">
+                    <DatePicker
+                        selected={endTime}
+                        onChange={(date) => setEndTime(date)}
+                        showTimeSelect
+                        timeFormat="p"
+                        timeIntervals={15}
+                        dateFormat="Pp"
+                        customInput={<ExampleCustomInput />}
+                    />
+                </div>
             </div>
             <div className="flex py-1">
                 <p className="w-1/3 ml-2">Điểm đi</p>
@@ -160,15 +164,7 @@ function Search(props) {
                     <FormPlace HandleChange={HandleChangePlace} array={search.toCity !== '' && search.toCity !== 'Tỉnh/Thành Phố' ? Place.find(rs => rs.name === search.toCity).districts.map(a => a.name) : []} name="toDistrict" width="w-44" type="Quận/Huyện" />
                 </div>
             </div>
-            <div className="flex justify-center py-4">
-                {/* <button className="flex items-center transition duration-500 hover:no-underline ease-in-out transform hover:-translate-y-1 hover:scale-110 py-1 px-8 hover:bg-blue-500 hover:text-white border border-blue-600 rounded-lg text-blue-400 text-xl"
-                    onClick={HandleSubmit}
-                >
-                    <span>Tìm kiếm</span>
-                    {loading && (
-                        <div className="duration-300 loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-4 w-4 ml-3"></div>
-                    )}
-                </button> */}
+            <div className="flex justify-center py-3">
                 <button onClick={HandleSubmit} className="hover-1 flex items-center">
                     <span>Tìm kiếm</span>
                     {loading && (
@@ -176,7 +172,6 @@ function Search(props) {
                     )}
                 </button>
             </div>
-
         </form>
     );
 }

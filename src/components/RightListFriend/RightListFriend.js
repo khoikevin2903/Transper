@@ -31,7 +31,7 @@ function RightListFriend(props) {
 
     return (
         <div>
-            <ul className="w-full bg-white shadow h-screen pt-2">
+            <ul className="w-full bg-white shadow h-screen pt-2 z-10">
                 {actives.length > 0 ? actives.map((item, index) => {
                     if (item.username !== username)
                     return (
@@ -64,12 +64,7 @@ function RightListFriend(props) {
                 }}
                 onMessage={(msg) => {
 
-                    // message.push(msg);
-                    // await dispatch(FetchChat2({ id: senderId, header: header }));
-                    // await dispatch(FetchChat({ id: senderId, header: header }));
-                    // scrollToBottom();
                     setActives(msg)
-                    //setMessage([...message]);
                 }}
                 ref={(client) => {
                     clientRef = client;

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { onLogin, onRegister } from '../../../reducers/login-register';
 import ClassNames from 'classnames';
+
 function BgLogin(props) {
     const dispatch = useDispatch();
     const active = useSelector(state => state.LoginRegister);
@@ -24,7 +25,7 @@ function BgLogin(props) {
                 <div className="w-2/3 break-words">
                     <h1 className="font-bold text-3xl mb-10 ">Chào Mừng Bạn Đã Đến Với Transper</h1>
                     <p className="text-lg">Hệ thống môi giới vận chuyển không chuyên hàng đầu Việt Nam.
-                            </p>
+                    </p>
                     <div className="flex items-center divide-x divide-white justify-start mt-8 ">
                         <div className={ClassNames(
                             "pr-4 text-xl",

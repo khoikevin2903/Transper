@@ -14,24 +14,24 @@ function HeaderOtherProfile(props) {
             <div className="bg-bgProfile bg-no-repeat bg-cover h-64 w-full rounded-b-md relative">
             </div>
             <div className="grid grid-flow-row grid-cols-3 grid-rows-1 gap-4 py-6 px-6">
-                <ul className="flex items-center">
+            <ul className="flex items-center">
                     <li className="px-2 cursor-pointer">
-                        <img src="https://iqonic.design/themes/socialv/html/images/icon/08.png" alt="" className="rounded" />
+                        <img src="https://templates.iqonic.design/socialv/html/images/icon/08.png" alt="" className="rounded" />
                     </li>
                     <li className="px-2 cursor-pointer">
-                        <img src="https://iqonic.design/themes/socialv/html/images/icon/09.png" alt="" className="rounded" />
+                        <img src="https://templates.iqonic.design/socialv/html/images/icon/09.png" alt="" className="rounded" />
                     </li>
                     <li className="px-2 cursor-pointer">
-                        <img src="https://iqonic.design/themes/socialv/html/images/icon/10.png" alt="" className="rounded" />
+                        <img src="https://templates.iqonic.design/socialv/html/images/icon/10.png" alt="" className="rounded" />
                     </li>
                     <li className="px-2 cursor-pointer">
-                        <img src="https://iqonic.design/themes/socialv/html/images/icon/11.png" alt="" className="rounded" />
+                        <img src="https://templates.iqonic.design/socialv/html/images/icon/11.png" alt="" className="rounded" />
                     </li>
                     <li className="px-2 cursor-pointer">
-                        <img src="https://iqonic.design/themes/socialv/html/images/icon/12.png" alt="" className="rounded" />
+                        <img src="https://templates.iqonic.design/socialv/html/images/icon/12.png" alt="" className="rounded" />
                     </li>
                     <li className="px-2 cursor-pointer">
-                        <img src="https://iqonic.design/themes/socialv/html/images/icon/13.png" alt="" className="rounded" />
+                        <img src="https://templates.iqonic.design/socialv/html/images/icon/13.png" alt="" className="rounded" />
                     </li>
                 </ul>
                 <div className="text-2xl font-medium flex justify-center opacity-80">

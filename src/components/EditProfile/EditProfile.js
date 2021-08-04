@@ -30,28 +30,16 @@ function EditProfile(props) {
                         }
                     )} style={{ borderRadius: "4px 0 0px 4px" }}
                         onClick={() => HandleChangeOption(0)}
-                    >Thông Tin Cá Nhân</li>
-                    <li className={ClassNames(`${option !== 1 ? 'hover:text-blue-300' : ''} duration-300 flex items-center justify-center cursor-pointer py-6`,
+                    >Thông Tin Cá Nhân
+                    </li>
+                <li className={ClassNames(`${option !== 1 ? 'hover:text-blue-300' : ''} duration-300 flex items-center justify-center cursor-pointer py-6`,
                         {
                             "bg-blue-400 text-white opacity-90": option === 1
                         }
                     )}
                         onClick={() => HandleChangeOption(1)}
-                    >Đổi Mật Khẩu</li>
-                    <li className={ClassNames(`${option !== 2 ? 'hover:text-blue-300' : ''} duration-300 flex items-center justify-center cursor-pointer py-6`,
-                        {
-                            "bg-blue-400 text-white opacity-90": option === 2
-                        }
-                    )}
-                        onClick={() => HandleChangeOption(2)}
-                    >Email and SMS</li>
-                    <li className={ClassNames(`${option !== 3 ? 'hover:text-blue-300' : ''} duration-300 flex items-center justify-center cursor-pointer py-6`,
-                        {
-                            "bg-blue-400 text-white opacity-90": option === 3
-                        }
-                    )} style={{ borderRadius: "0 4px 4px 0px" }}
-                        onClick={() => HandleChangeOption(3)}
-                    > Manage Contact</li>
+                    >Đổi Mật Khẩu
+                </li>   
                 </ul>
                 {option === 0 ? <PersonalInformation /> : <ChangePassword />}
             </div>

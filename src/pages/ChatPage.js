@@ -27,7 +27,7 @@ function ChatPage({ match }) {
     }
 
     useEffect(() => {
-        document.title = 'Nhắn tin | Transper'
+        document.title = 'Tin nhắn | Transper'
     }, []);
 
     useEffect(() => {

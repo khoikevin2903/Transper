@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 import { FetchChat } from '../../reducers/FetchListChat';
 import { FetchChat2 } from '../../reducers/FetchListChat2';
 
-
 function FormChat(props) {
 
     const dispatch = useDispatch();
@@ -16,13 +15,9 @@ function FormChat(props) {
 
     const [message, setMessage] = useState([]);
 
-
-
     const messagesEndRef = useRef(null);
 
     const [check, setCheck] = useState(false);
-
-
 
     const scrollToBottom = () => {
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -56,7 +51,6 @@ function FormChat(props) {
                 senderId: senderId,
                 content: mess
             }));
-            // setMess('');
         }
     }
 
@@ -107,7 +101,6 @@ function FormChat(props) {
                         {elm}
                         <div ref={messagesEndRef} />
                     </div>
-
                 </Scrollbars>
             </div>
             <div className="flex items-center bg-white px-4 py-4 w-full">
@@ -134,15 +127,9 @@ function FormChat(props) {
             </div>
             <SockJsClient url={SOCKET_URL}
                 topics={[`/topic/${idChat}/queue/messages`]}
-                onConnect={() => {
-                    // console.log(idChat + " connect");
-                }}
-                onDisconnect={() => {
-                    // console.log(idChat + "dis connect");
-
-                }}
+                onConnect={() => {}}
+                onDisconnect={() => {}}
                 onMessage={async (msg) => {
-
                     message.push(msg);
                     if (msg.senderId === senderId) {
                         setMess('')
@@ -150,8 +137,6 @@ function FormChat(props) {
                     await dispatch(FetchChat2({ id: senderId, header: header }));
                     await dispatch(FetchChat({ id: senderId, header: header }));
                     scrollToBottom();
-                   
-                    //setMessage([...message]);
                 }}
                 ref={(client) => {
                     clientRef = client;

@@ -8,6 +8,7 @@ import Introduce from './Introduce';
 import MyPost from './MyPost';
 import Rating from './Rating';
 import {FetchPost} from '../../reducers/fetchMyPost';
+import './Profile.scss';
 
 function Profile(props) {
 
@@ -28,7 +29,7 @@ function Profile(props) {
 
     return (
         <div className="w-full relative">
-            <div className="shadow header fixed w-full bg-white">
+            <div className="shadow fixed w-full bg-white header">
                 <Header />
             </div>
             <div className="w-full flex bg-gray-100 relative pt-20 justify-center pl-6 pr-4">
